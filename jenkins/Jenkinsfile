@@ -22,7 +22,7 @@ node {
             def jar_file = "/var/jenkins_home/workspace/submission-cicd-pipeline-reky_arch/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar"
             def ssh_key = "/var/jenkins_home/.ssh/id_rsa"
 
-            sh "ssh -i ${ssh_key} ${target_user}@${target_host} 'mkdir -p ${target_dir}'"
+//            sh "ssh -i ${ssh_key} ${target_user}@${target_host} 'mkdir -p ${target_dir}'"
             sh "echo 'Sedang upload file...'"
             sh "scp -i ${ssh_key} ${jar_file} ${target_user}@${target_host}:${target_dir}"
             sh "echo 'File sudah diupload'"
