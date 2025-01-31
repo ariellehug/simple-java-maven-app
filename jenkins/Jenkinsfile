@@ -20,13 +20,17 @@ node {
             def target_user = "root"
             def target_dir = "/home/app"
             def jar_file = "/var/jenkins_home/workspace/submission-cicd-pipeline-reky_arch/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar"
-        
-            sshagent(['jenkins-ssh-credentials']) {
-                sh "ssh ${target_user}@${target_host} 'mkdir -p ${target_dir}'"
-                sh "echo 'Sedang upload file...'"
-                sh "scp ${jar_file} ${target_user}@${target_host}:${target_dir}"
-                sh "echo 'File sudah diupload'"
-            }
+            def ssh_key = "/var/jenkins_home/.ssh/id_rsa"
+
+            sh """
+                # Buat direktori
+                ssh -i ${ssh_key} ${target_user}@${target_host} 'mkdir -p ${target_dir}'
+                
+                # Upload file
+                echo 'Sedang upload file...'
+                scp -i ${ssh_key} ${jar_file} ${target_user}@${target_host}:${target_dir}
+                echo 'File sudah diupload'
+            """
             
             sleep(60) //jeda 1 menit
 
