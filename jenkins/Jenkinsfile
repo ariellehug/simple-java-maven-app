@@ -16,7 +16,7 @@ node {
         stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
 
-            sh 'apt-get install -y sshpass openssh-client'
+            sh 'apt-get update && apt-get install -y sshpass openssh-client'
 
             withCredentials([usernamePassword(credentialsId: 'vm-cred', passwordVariable: 'VM_PASSWORD')]) {
                 sh "echo '======Sedang upload file...======'"
