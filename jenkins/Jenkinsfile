@@ -1,5 +1,5 @@
 node {
-    docker.image('maven:3.9.0').inside('-v /root/.m2:/root/.m2') {  
+    docker.image('maven:3.9.2').inside('-v /root/.m2:/root/.m2') {  
         stage('Build') {
             sh 'mvn -B -e -DskipTests clean package'
         }
@@ -15,18 +15,19 @@ node {
 
         stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
+
+            def VM_PASSWORD = "W3lcome.2022!#"
+            def jar_file = "/var/jenkins_home/workspace/submission-cicd-pipeline-reky_arch/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar"
+
+            sh 'apt-get install -y sshpass openssh-client' 
+            sh "echo '======Sedang upload file...======'"
+            sh "sshpass -p ${VM_PASSWORD} ecustomer@192.168.0.20"
+            sh "scp ${jar_file} ecustomer@192.168.0.20:/home/ecustomer/app"
+            sh "echo '======File sudah diupload======'"
+
             sleep(60) //jeda 1 menit
         }
     
     }
-
-    def VM_PASSWORD = "W3lcome.2022!#"
-    def jar_file = "/var/jenkins_home/workspace/submission-cicd-pipeline-reky_arch/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar"
-
-    sh 'sudo apt-get install -y sshpass openssh-client' 
-    sh "echo '======Sedang upload file...======'"
-    sh "sudo sshpass -p ${VM_PASSWORD} ecustomer@192.168.0.20"
-    sh "sudo scp ${jar_file} ecustomer@192.168.0.20:/home/ecustomer/app"
-    sh "echo '======File sudah diupload======'"
 
 }
