@@ -19,10 +19,10 @@ node {
             sh 'apt-get update && apt-get install -y sshpass openssh-client'
 
             withCredentials([usernamePassword(credentialsId: 'vm-cred', usernameVariable: 'VM_USER', passwordVariable: 'VM_PASSWORD')]) {
-                sh 'echo '======Sedang upload file...======''
-                sh 'sshpass -p '$VM_PASSWORD' ecustomer@160.20.104.100'
-                sh 'scp -o StrictHostKeyChecking=no target/*.jar ecustomer@160.20.104.100:/home/ecustomer/app'
-                sh 'echo '======File sudah diupload======''
+                sh "echo '======Sedang upload file...======'"
+                sh "sshpass -p '$VM_PASSWORD' ecustomer@160.20.104.100"
+                sh "scp -o StrictHostKeyChecking=no target/*.jar ecustomer@160.20.104.100:/home/ecustomer/app"
+                sh "echo '======File sudah diupload======'"
             }
             
             sleep(60) //jeda 1 menit
