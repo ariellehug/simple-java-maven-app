@@ -20,8 +20,8 @@ node {
 
             withCredentials([usernamePassword(credentialsId: 'vm-cred', usernameVariable: 'VM_USER', passwordVariable: 'VM_PASSWORD')]) {
                 sh "echo '======Sedang upload file...======'"
-                sh "sshpass -p '$VM_PASSWORD' ecustomer@160.20.104.100"
-                sh "scp -o StrictHostKeyChecking=no target/*.jar ecustomer@160.20.104.100:/home/ecustomer/app"
+                sh "sshpass -p '$VM_PASSWORD' scp -o StrictHostKeyChecking=no target/*.jar ecustomer@160.20.104.100:/home/ecustomer/app"
+//                sh "scp -o StrictHostKeyChecking=no target/*.jar ecustomer@160.20.104.100:/home/ecustomer/app"
                 sh "echo '======File sudah diupload======'"
             }
             
