@@ -21,8 +21,8 @@ node {
 
             sh 'sudo apt-get install -y sshpass openssh-client' 
             sh "echo '======Sedang upload file...======'"
-            sh "sshpass -p ${VM_PASSWORD} ecustomer@192.168.0.20"
-            sh "scp ${jar_file} ecustomer@192.168.0.20:/home/ecustomer/app"
+            sh "sudo sshpass -p ${VM_PASSWORD} ecustomer@192.168.0.20"
+            sh "sudo scp ${jar_file} ecustomer@192.168.0.20:/home/ecustomer/app"
             sh "echo '======File sudah diupload======'"
             
             sleep(60) //jeda 1 menit
