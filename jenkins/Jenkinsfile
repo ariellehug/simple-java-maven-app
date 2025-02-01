@@ -19,9 +19,9 @@ node {
             sh 'apt update && apt install -y sshpass'// openssh-client'
 
             withCredentials([usernamePassword(credentialsId: 'vm-cred', usernameVariable: 'VM_USER', passwordVariable: 'VM_PASSWORD')]) {
-                sh "sshpass -p '$VM_PASSWORD' ssh -o StrictHostKeyChecking=no $VM_USER@160.20.104.100 'logger "======Sedang upload file...======"'"
+                sh "sshpass -p '$VM_PASSWORD' ssh -o StrictHostKeyChecking=no $VM_USER@160.20.104.100 'logger '======Sedang upload file...======''"
                 sh "sshpass -p '$VM_PASSWORD' scp -o StrictHostKeyChecking=no target/*.jar ecustomer@160.20.104.100:/home/ecustomer/app"
-                sh "sshpass -p '$VM_PASSWORD' ssh -o StrictHostKeyChecking=no $VM_USER@160.20.104.100 'logger "======File sudah diupload======"'"
+                sh "sshpass -p '$VM_PASSWORD' ssh -o StrictHostKeyChecking=no $VM_USER@160.20.104.100 'logger '======File sudah diupload======''"
             }
             
             sleep(60) //jeda 1 menit
