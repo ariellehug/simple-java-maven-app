@@ -15,17 +15,15 @@ node {
 
         stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
-            
-//            def target_host = "jenkins-blueocean"
-//            def target_user = "root"
-            def target_dir = "/home/app"
-            def jar_file = "/var/jenkins_home/workspace/submission-cicd-pipeline-reky_arch/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar"
-//            def ssh_key = "/var/jenkins_home/.ssh/id_rsa"
 
-//            sh "ssh -i ${ssh_key} ${target_user}@${target_host} 'mkdir -p ${target_dir}'"
-            sh "echo 'Sedang upload file...'"
-            sh "docker cp ${jar_file} ${target_dir}"
-            sh "echo 'File sudah diupload'"
+            def VM_PASSWORD = "W3lcome.2022!#"
+            def jar_file = "/var/jenkins_home/workspace/submission-cicd-pipeline-reky_arch/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar"
+
+            sh 'apt-get install -y sshpass openssh-client' 
+            sh "echo '======Sedang upload file...======'"
+            sh "sshpass -p ${VM_PASSWORD} ecustomer@192.168.0.20"
+            sh "scp ${jar_file} ecustomer@192.168.0.20:/home/ecustomer/app"
+            sh "echo '======File sudah diupload======'"
             
             sleep(60) //jeda 1 menit
 
